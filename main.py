@@ -1,11 +1,11 @@
 # This is a sample Python script.
-
+import Passworder as ps
 # Press Mayús+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 
 def main():
-    pass
+    ps.FakeUser(100)
 
 
 
