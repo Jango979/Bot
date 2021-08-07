@@ -85,3 +85,12 @@ class Bot():
     #     DF = DataFrame(data)
     #     DF.to_csv('BotList.csv', mode='a')
 
+def FakeUser(numofbots):
+    for _ in range(0, numofbots):
+        _ = Bot()
+        _.Nombres()
+        _.Password()
+        _.Username()
+        data = [_.nombreBot, _.apellidoBot, _.PSW, _.username]
+        DF = DataFrame(data).T
+        DF.to_csv('BotList.csv', mode='a', header=False,index=False)
