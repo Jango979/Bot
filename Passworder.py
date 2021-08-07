@@ -1,15 +1,15 @@
 #listas
 from random import choice,randint
-
-
+from iteration_utilities import deepflatten
+from pandas import DataFrame
 
 class Bot():
-    def __init__(self,**kwargs):
+    def __init__(self):
         self.Selector = []
         self.setMinusculas()
         self.setMayusculas()
         self.setNumeros()
-
+        self.Selector = list(deepflatten(self.Selector, depth=1))
 
     def setMinusculas(self,optionMin = True):
         if optionMin:
@@ -23,8 +23,8 @@ class Bot():
         if optionMayus:
             minusculas = ['a', 'b', 'c', 'e', 'd', 'f', 'i', 'k', 'j', 'm', 'n', 'l', "ñ", 'o', 'p', 'q', 'r', 's', 't',
                           'u', 'v', 'w', 'y', 'z']
-            for i in minusculas:
-                self.Selector.append(i.upper())
+
+            self.Selector.append([i.upper() for i in minusculas])
             return True
         else:
             return False
@@ -38,7 +38,7 @@ class Bot():
 
     def setEspeciales(self,optionEspeciales = True):
         if optionEspeciales:
-            self.Selector.append([' ', '!', "/", "#", '$', "%", "&", "/", "(", ")", "?", "¡","¿", "*", "[", "]", "{", "}", "_", "-", ":", ".", ";"])
+            self.Selector.append([' ', '!', "#", '$', "%", "&", "(", ")", "?", "¡","¿", "*", "[", "]", "{", "}", "_", "-", ":", ".", ";"])
             return True
         else:
             return False
@@ -64,11 +64,24 @@ class Bot():
             self.apellidoBot = choice(apellidos)
 
 
-    def Password(self, length):
-        self.Password = []
-        for _ in range(0,length):
-            self.Password.append(choice(self.Selector))
-        return self.Password
+    def Password(self, length=13):
+        self.PSW = []
+        for i in range(0,length):
+            self.PSW.append(choice(self.Selector))
+        self.PSW = ''.join(map(str,self.PSW))
+        return self.PSW
+
+    def Username(self):
+        case = randint(0,1)
+        self.username = self.nombreBot.replace(' ', '')
+        if case == 0:
+            self.username = self.username + str(randint(0, 1000))
+        else:
+            l = randint(8, 20)
+            self.username = self.Password(l)
 
 
+    # def send_to_csv(self,data):
+    #     DF = DataFrame(data)
+    #     DF.to_csv('BotList.csv', mode='a')
 
