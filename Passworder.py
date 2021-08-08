@@ -13,7 +13,7 @@ class Bot():
 
     def setMinusculas(self,optionMin = True):
         if optionMin:
-            minusculas = ['a', 'b', 'c', 'e', 'd', 'f', 'i', 'k', 'j', 'm', 'n', 'l', "ñ", 'o', 'p', 'q', 'r', 's', 't',
+            minusculas = ['a', 'b', 'c', 'e', 'd', 'f', 'i', 'k', 'j', 'm', 'n', 'l', 'o', 'p', 'q', 'r', 's', 't',
                           'u', 'v', 'w', 'y', 'z']
             self.Selector.append(minusculas)
             return True
@@ -21,7 +21,7 @@ class Bot():
             return False
     def setMayusculas(self, optionMayus = True):
         if optionMayus:
-            minusculas = ['a', 'b', 'c', 'e', 'd', 'f', 'i', 'k', 'j', 'm', 'n', 'l', "ñ", 'o', 'p', 'q', 'r', 's', 't',
+            minusculas = ['a', 'b', 'c', 'e', 'd', 'f', 'i', 'k', 'j', 'm', 'n', 'l', 'o', 'p', 'q', 'r', 's', 't',
                           'u', 'v', 'w', 'y', 'z']
 
             self.Selector.append([i.upper() for i in minusculas])
@@ -36,7 +36,7 @@ class Bot():
         else:
             return False
 
-    def setEspeciales(self,optionEspeciales = True):
+    def setEspeciales(self,optionEspeciales = False):
         if optionEspeciales:
             self.Selector.append([' ', '!', "#", '$', "%", "&", "(", ")", "?", "¡","¿", "*", "[", "]", "{", "}", "_", "-", ":", ".", ";"])
             return True
@@ -69,21 +69,34 @@ class Bot():
         for i in range(0,length):
             self.PSW.append(choice(self.Selector))
         self.PSW = ''.join(map(str,self.PSW))
+        self.PSW = self.PSW + str(randint(10,100000))
         return self.PSW
 
     def Username(self):
         case = randint(0,1)
         self.username = self.nombreBot.replace(' ', '')
         if case == 0:
-            self.username = self.username + str(randint(0, 1000))
+            self.username = ''.join(map(str,self.username)) + str(randint(1000000, 10000000000))
+            print(self.username)
         else:
-            l = randint(8, 20)
-            self.username = self.Password(l)
+            self.username = self.username.replace(' ','') + self.apellidoBot.replace(' ','') + str(randint(100000, 1000000000))
+            print(self.username)
 
+    def Country(self):
+        Paises = ['DE','AD','AG','AR','BZ','BO','SV','ES','US','GT','IS','MX','ME',
+                  'BR','CA','CL','CO','CU','DK','DM','EC','PA','PY','PE','NI','CH','SE',
+                  'UZ','VE','UY','VN']
+        self.C= choice(Paises)
 
     # def send_to_csv(self,data):
     #     DF = DataFrame(data)
     #     DF.to_csv('BotList.csv', mode='a')
+    def BirthdayDay(self):
+        self.bd = str(randint(1,31))
+    def BirthdayMonth(self):
+        self.bm = str(randint(1,12))
+    def BirthdayYear(self):
+        self.by = str(randint(1970,2012))
 
 def FakeUser(numofbots):
     for _ in range(0, numofbots):
@@ -91,6 +104,10 @@ def FakeUser(numofbots):
         _.Nombres()
         _.Password()
         _.Username()
-        data = [_.nombreBot, _.apellidoBot, _.PSW, _.username]
+        _.Country()
+        _.BirthdayDay()
+        _.BirthdayMonth()
+        _.BirthdayYear()
+        data = [_.nombreBot, _.apellidoBot, _.PSW, _.username, _.C, _.bd, _.bm, _.by]
         DF = DataFrame(data).T
         DF.to_csv('BotList.csv', mode='a', header=False,index=False)
