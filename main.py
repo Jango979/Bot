@@ -1,15 +1,14 @@
-# This is a sample Python script.
 import Passworder as ps
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from pandas import read_csv
+import parte1
 
 
-def main():
-    ps.FakeUser(100)
-
-
+def main(Numero_de_Bots=100):
+    ps.FakeUser(Numero_de_Bots)
+    DF = read_csv('BotList.csv', header=None)
+    parte1(DF)
 
 if __name__ == '__main__':
-    main()
+    main(100)
 
 
