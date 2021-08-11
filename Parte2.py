@@ -36,6 +36,7 @@ class NikeUser():
 
     def LogIn(self):
         for _ in range(0,len(self.DF[0])):
+            self.VerifyCountry()
             self.username = str(DF.values[_][3])
             self.password = str(DF.values[_][2])
 
@@ -48,6 +49,8 @@ class NikeUser():
             self.driver.find_element_by_name(EmailTextArea).send_keys(self.username+'@outlook.es')
             self.driver.find_element_by_name(PassTextArea).send_keys(self.password)
             self.driver.find_element_by_xpath("//input[@value='SIGN IN']").click()
+
+
 
     def JoinUs(self):
 
@@ -87,8 +90,8 @@ class NikeUser():
 
                 except:
                     print('Objetivo inscrito')
-                    time.sleep(4)
-                    self.driver.quit()
+                    time.sleep(100)
+                    #self.driver.quit()
                     self.driver = wd.Chrome(executable_path=self.DIR_PATH)
                     self.driver.maximize_window()
                     self.driver.get(self.objectPage)
@@ -100,8 +103,10 @@ class NikeUser():
 
 
 
-
+##########Para registrarlos
 DF = read_csv('BotList.csv',header=None)
 NkUser = NikeUser(DF)
 NkUser.VerifyCountry()
 NkUser.JoinUs()
+
+
