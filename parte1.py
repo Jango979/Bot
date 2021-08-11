@@ -67,5 +67,6 @@ def parte1(DF):
             (By.CSS_SELECTOR, continuebutton1)))
         button.click()
 
+        time.sleep(50)
         driver.quit()
 
