@@ -82,7 +82,7 @@ class NikeUser():
                 self.driver.find_element_by_xpath("//input[@value='JOIN US']").click()
 
                 try:
-                    time.sleep(3)
+                    time.sleep(10)
                     self.driver.find_element_by_xpath("//input[@value='Dismiss this error']").click()
                     print('Fail on sign in retry in 10s')
                     time.sleep(10)
@@ -90,7 +90,7 @@ class NikeUser():
 
                 except:
                     print('Objetivo inscrito')
-                    time.sleep(100)
+                    time.sleep(10)
                     #self.driver.quit()
                     self.driver = wd.Chrome(executable_path=self.DIR_PATH)
                     self.driver.maximize_window()
